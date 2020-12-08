@@ -21,7 +21,7 @@ services:
       - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
     volumes:
       - ${NGINX_LOGS:-./app_logs/nginx}:/var/log/nginx
-      - ${NEXTCLOUD_DATA:-./app_wordpress}:/var/www/html:ro
+      - ${NEXTCLOUD_DATA:-./app_nextcloud}:/var/www/html:ro
       - /var/run/docker.sock:/tmp/docker.sock:ro
     networks:
       - https-revproxy
@@ -33,16 +33,12 @@ services:
     image: nextcloud:fpm-alpine
     container_name: ${COMPOSE_PROJECT_NAME}_mariadb
     restart: unless-stopped
-    volumes:
-      - nextcloud:/var/www/html
-    labels:
-      - com.centurylinklabs.watchtower.enable=true
-    environment:
-      - MYSQL_HOST=db
-    env_file:
-      - db.env
     depends_on:
       - db
+    environment:
+      - MYSQL_HOST=db
+    volumes:
+      - ${NEXTCLOUD_DATA:-./app_nextcloud}:/var/www/html
     networks:
       - nextcloud
 
@@ -51,9 +47,7 @@ services:
     container_name: ${COMPOSE_PROJECT_NAME}_mariadb
     restart: unless-stopped
     volumes:
-      - db:/var/lib/mysql
-    labels:
-      - com.centurylinklabs.watchtower.enable=true
+      - ${MARIADB_DATA:-./app_mariadb}:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-password}
       - MYSQL_USER=${MYSQL_USER:-root}
@@ -62,10 +56,6 @@ services:
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     networks:
       - nextcloud
-
-volumes:
-  db:
-  nextcloud:
 
 networks:
   https-revproxy:
