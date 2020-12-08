@@ -1,4 +1,4 @@
-[<img src="https://raw.githubusercontent.com/elasticlabs/nextcloud-compose/main/logo.jpg" align="right" width="250px">](https://nextcloud.com/)
+[<img src="https://github.com/elasticlabs/nextcloud-compose-nginx/blob/main/logo.jpg" align="right" width="250px">](https://nextcloud.com/)
 # nextcloud-compose-nginx
 This project is a Nextcloud composition stack designed to integrate with a Nginx HTTP reverse proxy.
 
