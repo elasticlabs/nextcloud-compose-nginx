@@ -24,9 +24,10 @@ This stack is meant to be deployed behind an automated NGINX based HTTPS proxy. 
 * Choose & register a DNS name (e.g. `nextcloud.your-domain.ltd`). Make sure it properly resolves from your server using `nslookup`commands.
 * Carefully create / choose an appropriate directory to group your applications GIT reposities (e.g. `~/AppContainers/`)
 * GIT clone this repository `git clone https://github.com/elasticlabs/nextcloud-compose-nginx.git`
-* Modify the following variables in `.env` file :
-  * `TE_VHOST=` : replace `nextcloud.your-domain.ltd` with your choosen subdomain for portainer.
+* Modify the following variables in `.env-changeme` file :
+  * `TE_VHOST=` : replace `nextcloud.your-domain.ltd` with your choosen subdomain for nextcloud.
   * `LETSENCRYPT_EMAIL=` : replace `email@mail-provider.ltd` with the email address to get notifications on Certificates issues for your domain. 
+* **Rename `.env-changeme` file into `.env`** to ensure `docker-compose` gets its environement correctly.
 
 ## Stack deployment and management
 **Deployment**
