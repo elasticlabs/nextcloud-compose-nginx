@@ -24,19 +24,15 @@ help:
 	@echo "==================================================================================="
 
 .PHONY: up
-up:
-	git stash && git pull
+up: build
 	docker-compose -f docker-compose.yml up -d --build --remove-orphans
 
 .PHONY: build
 build:
-	# Network creation if not done yet
-	@echo "[INFO] Create ${APPS_NETWORK} docker network if it doesn't already exists"
-	docker network inspect docker create ${APPS_NETWORK} >/dev/null 2>&1 \
-		|| docker network create --driver bridge my_local_network
+	git stash && git pull
 	# Build the stack
 	@echo "[INFO]Building the application"
-	docker-compose -f docker-compose.yml --build
+	docker-compose -f docker-compose.yml build
 
 .PHONY: update
 update: 
