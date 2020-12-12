@@ -11,8 +11,6 @@ services:
       - "80"
     build:
       context: ./proxy
-    labels:
-      - com.centurylinklabs.watchtower.enable=true
     environment:
       - DHPARAM_GENERATION=false
       - VIRTUAL_HOST=${VIRTUAL_HOST}
